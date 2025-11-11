@@ -1,10 +1,11 @@
-﻿
-namespace CarService.Models.DTL
+﻿namespace CarService.Models.Dto
 {
     public class Car
     {
-            public int Id { get; set; }
-            public string Model { get; set; } = string.Empty;
-            public int Year { get; set; }
+        public int Id { get; set; }
+
+        public string Model { get; set; } = string.Empty;
+
+        public int Year { get; set; }
     }
 }

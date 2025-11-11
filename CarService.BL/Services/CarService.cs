@@ -1,22 +1,17 @@
 ﻿using CarService.BL.Interfaces;
-using CarService.DataLayer.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CarService.DL.Interfaces;
+using CarService.Models.Dto;
 
 namespace CarService.BL.Services
 {
     internal class CarService : ICarService
     {
         private readonly ICarRepository _carRepository;
-        public CarService() 
-        {
-            
-        }
 
-        public ICarRepository CarRepository => _carRepository;
+        public CarService(ICarRepository carRepository)
+        {
+            _carRepository = carRepository;
+        }
 
         public void AddCar(Car car)
         {
@@ -25,12 +20,12 @@ namespace CarService.BL.Services
 
         public void DeleteCar(int id)
         {
-            _carRepository?.DeleteCar(id);
+            _carRepository.DeleteCar(id);
         }
 
         public List<Car> GetAllCars()
         {
-            _carRepository.GetAllCars();
+            return _carRepository.GetAllCars();
         }
     }
 }
