@@ -11,22 +11,21 @@ namespace CarService.DL.LocalDb
             new Car { Id = 3, Model = "Ford Mustang", Year = 2021 }
         };
 
-        public static List<Customer> Customers
-            = new List<Customer>
+        public static List<Customer> Customers =
+            new List<Customer>()
             {
                 new Customer()
                 {
-                    Id=Guid.NewGuid(),
-                    Name="Stamat Genov",
-                    Email="stamat.com",
+                    Id = Guid.NewGuid(),
+                    Name = "John Doe",
+                    Email = "jd@xxx.com"
                 },
-                    new Customer()
+                new Customer()
                 {
-                    Id=Guid.NewGuid(),
-                    Name="Stamat gencev",
-                    Email="stamathh.com",
+                    Id = Guid.NewGuid(),
+                    Name = "Stamat Genov",
+                    Email = "sg@xxx.com"
                 }
-
             };
     }
 }

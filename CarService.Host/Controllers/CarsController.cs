@@ -1,6 +1,5 @@
 ﻿using CarService.BL.Interfaces;
 using CarService.Models.Dto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarService.Host.Controllers
@@ -9,54 +8,82 @@ namespace CarService.Host.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        private readonly ICarCrudServices _carService;
+        private readonly ICarCrudService _carCrudService;
 
-        public CarsController(ICarCrudServices carService)
+        public CarsController(ICarCrudService carCrudService)
         {
-            _carService = carService;
+            _carCrudService = carCrudService;
         }
 
-        [HttpGet(nameof(GetAllCars))]
-        public IActionResult GetAllCars()
+        [HttpDelete]
+        public IActionResult DeleteCar(int id)
         {
-            var cars = _carService.GetAllCars();
-            return Ok(cars);
-        }
-
-        [HttpPost]
-        public IActionResult AddCar([FromBody] Car car)
-        {
+            if (id <= 0)
+            {
+                return BadRequest("ID must be greater than zero.");
+            }
+            var car = _carCrudService.GetById(id);
             if (car == null)
             {
-                return BadRequest("Car data is null.");
+                return NotFound($"Car with ID {id} not found.");
             }
-            _carService.AddCar(car);
+            _carCrudService.DeleteCar(id);
             return Ok();
         }
 
         [HttpGet(nameof(GetById))]
         public IActionResult GetById(int id)
         {
-            if(id <= 0)
+            if (id <= 0)
             {
-                return BadRequest("ID must be positive");
-            }
-            var car = _carService.GetById(id);
-           
-            if (car == null)
-            {
-                return BadRequest("Car not found!");
+                return BadRequest("ID must be greater than zero.");
             }
 
+            var car = _carCrudService.GetById(id);
+            
+            if (car == null)
+            {
+                return NotFound($"Car with ID {id} not found.");
+            }
+
+            return Ok(car);
+        }
+
+        [HttpGet(nameof(GetAll))]
+        public IActionResult GetAll()
+        {
+            var cars = _carCrudService.GetAllCars();
+            return Ok(cars);
+        }
+
+        [HttpPost]
+        public IActionResult AddCar([FromBody] Car? car)
+        {
+            if (car == null)
+            {
+                return BadRequest("Car data is null.");
+            }
+
+            _carCrudService.AddCar(car);
 
             return Ok();
         }
-
-        [HttpDelete]
-        public IActionResult DeleteCar(int id)
+        [HttpPut]
+        public IActionResult UpdateCar(int id, [FromBody] Car? car)
         {
-            _carService.DeleteCar();
-            return Ok();
+            if (id <= 0)
+                return BadRequest("ID must be greater than zero.");
+
+            if (id != car.Id)
+                return BadRequest("ID in the route must match the ID in the car object.");
+
+            var existingCar = _carCrudService.GetById(id);
+            if (existingCar == null)
+                return NotFound($"Car with ID {id} not found.");
+
+            _carCrudService.UpdateCar(car);
+
+            return NoContent(); // 204 No Content is the standard for successful PUT updates
         }
     }
 }

@@ -9,5 +9,9 @@ namespace CarService.DL.Interfaces
         void DeleteCar(int id);
 
         List<Car> GetAllCars();
+
+        Car? GetById(int id);
+        void UpdateCar(int id, Car car);
+        void UpdateCar(Car car);
     }
 }

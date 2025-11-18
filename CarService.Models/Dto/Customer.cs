@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarService.Models.Dto
+﻿namespace CarService.Models.Dto
 {
     public class Customer
     {

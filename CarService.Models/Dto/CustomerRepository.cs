@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarService.Models.Dto
 {
-    internal class CustomerReposiroty
+    internal class CustomerRepository
     {
     }
 }

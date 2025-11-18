@@ -20,9 +20,38 @@ namespace CarService.DL.Repositories
         {
             return StaticDb.Cars;
         }
-        public Car GetCarById(int id) {
+
+        public Car? GetById(int id)
+        {
             return StaticDb.Cars
-                .FirstOrDefault(c:Car =>c.Id==id)
-         }
+                .FirstOrDefault(c =>
+                    c.Id == id);
+        }
+
+
+        void ICarRepository.DeleteCar(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<Car> ICarRepository.GetAllCars()
+        {
+            throw new NotImplementedException();
+        }
+
+        Car? ICarRepository.GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void ICarRepository.UpdateCar(int id, Car car)
+        {
+            throw new NotImplementedException();
+        }
+
+        void ICarRepository.UpdateCar(Car car)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
