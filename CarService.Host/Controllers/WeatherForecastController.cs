@@ -17,7 +17,7 @@ namespace CarService.Host.Controllers
         {
             _logger = logger;
         }
-
+        //https://127.0.0.1/WeatherForecast/GetWeatherForecast
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
