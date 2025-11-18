@@ -1,4 +1,5 @@
 
+using CarService.BL;
 using CarService.BL.Interfaces;
 using Microsoft.OpenApi.Models;
 
@@ -11,7 +12,8 @@ namespace CarService.Host
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddDataLayer();
+            builder.Services.AddBusinessLayer();
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
