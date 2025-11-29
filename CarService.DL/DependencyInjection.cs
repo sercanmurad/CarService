@@ -10,7 +10,9 @@ namespace CarService.DL
             AddDataLayer(this IServiceCollection services)
         {
             // Register data layer services here
-            services.AddSingleton<ICarRepository, CarLocalRepository>();
+            services
+                .AddSingleton<ICarRepository, CarLocalRepository>()
+                .AddSingleton<ICustomerRepository, CustomerLocalRepository>();
 
             return services;
         }

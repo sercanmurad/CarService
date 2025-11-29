@@ -1,13 +1,9 @@
-﻿namespace CarService.Models.Dto
+﻿namespace CarService.Models.Requests
 {
-    public class Car
+    public class AddCarRequest
     {
-        public int Id { get; set; }
-
         public string Model { get; set; } = string.Empty;
 
         public int Year { get; set; }
-
-
     }
 }

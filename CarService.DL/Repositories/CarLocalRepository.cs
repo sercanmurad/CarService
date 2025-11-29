@@ -27,31 +27,5 @@ namespace CarService.DL.Repositories
                 .FirstOrDefault(c =>
                     c.Id == id);
         }
-
-
-        void ICarRepository.DeleteCar(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        List<Car> ICarRepository.GetAllCars()
-        {
-            throw new NotImplementedException();
-        }
-
-        Car? ICarRepository.GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        void ICarRepository.UpdateCar(int id, Car car)
-        {
-            throw new NotImplementedException();
-        }
-
-        void ICarRepository.UpdateCar(Car car)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
