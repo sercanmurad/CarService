@@ -8,7 +8,6 @@ namespace CarService.BL.Interfaces
 
         void DeleteCar(int id);
 
-        void UpdateCar(Car car);
         List<Car> GetAllCars();
 
         Car? GetById(int id);

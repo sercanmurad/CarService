@@ -11,7 +11,5 @@ namespace CarService.DL.Interfaces
         List<Car> GetAllCars();
 
         Car? GetById(int id);
-        void UpdateCar(int id, Car car);
-        void UpdateCar(Car car);
     }
 }

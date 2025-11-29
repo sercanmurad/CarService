@@ -32,9 +32,5 @@ namespace CarService.BL.Services
         {
             return _carRepository.GetById(id);
         }
-        public void UpdateCar(Car car)
-        {
-            _carRepository.UpdateCar(car);
-        }
     }
 }
