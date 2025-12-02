@@ -6,10 +6,10 @@ namespace CarService.BL.Interfaces
     {
         void AddCar(Car car);
 
-        void DeleteCar(int id);
+        void DeleteCar(Guid id);
 
         List<Car> GetAllCars();
 
-        Car? GetById(int id);
+        Car? GetById(Guid id);
     }
 }
