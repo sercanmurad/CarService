@@ -4,6 +4,7 @@ using CarService.BL.Interfaces;
 using CarService.DL;
 using CarService.DL.Interfaces;
 using CarService.DL.Repositories;
+using CarService.Host.Healthchecks;
 using Mapster;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -43,7 +44,14 @@ namespace CarService.Host
 
             builder.Host.UseSerilog();
 
+            builder.Services
+                .AddHealthChecks()
+                .AddCheck<MyCustomHealthCheck>("sample");
+
             var app = builder.Build();
+
+            app.MapHealthChecks("/healthz");
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
