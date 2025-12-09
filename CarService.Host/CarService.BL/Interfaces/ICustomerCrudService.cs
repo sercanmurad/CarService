@@ -1,8 +1,13 @@
 ﻿using CarService.Models.Dto;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CarService.DL.Interfaces
+namespace CarService.BL.Interfaces
 {
-    public interface ICustomerRepository
+    public interface ICustomerCrudService
     {
         void AddCustomer(Customer customer);
 

@@ -1,8 +1,8 @@
 ﻿using CarService.BL.Interfaces;
 using CarService.Models.Dto;
 using CarService.Models.Requests;
-using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
+using MapsterMapper;
 
 namespace CarService.Host.Controllers
 {
@@ -12,10 +12,12 @@ namespace CarService.Host.Controllers
     {
         private readonly ICarCrudService _carCrudService;
         private readonly IMapper _mapper;
+        
 
         public CarsController(
-            ICarCrudService carCrudService,
-            IMapper mapper)
+            ICarCrudService carCrudService, 
+            IMapper mapper, 
+            ILogger<CarsController> logger)
         {
             _carCrudService = carCrudService;
             _mapper = mapper;
@@ -26,7 +28,7 @@ namespace CarService.Host.Controllers
         {
             if (id == Guid.Empty)
             {
-                return BadRequest("ID must be a valid Guid.");
+                return BadRequest("ID must be a valid guid.");
             }
             var car = _carCrudService.GetById(id);
             if (car == null)
@@ -42,7 +44,8 @@ namespace CarService.Host.Controllers
         {
             if (id == Guid.Empty)
             {
-                return BadRequest("ID must be a valid Guid.");
+               
+                return BadRequest("ID must be greater than zero.");
             }
 
             var car = _carCrudService.GetById(id);
@@ -71,8 +74,13 @@ namespace CarService.Host.Controllers
             }
 
             var car = _mapper.Map<Car>(carRequest);
-
             _carCrudService.AddCar(car);
+
+            //_carCrudService.AddCar(new Car
+            //{
+            //    Model = carRequest.Model,
+            //    Year = carRequest.Year,
+            //});
 
             return Ok();
         }

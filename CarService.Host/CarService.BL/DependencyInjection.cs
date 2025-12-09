@@ -12,6 +12,8 @@ namespace CarService.BL
             // Register data layer services here
             services.AddSingleton<ICarCrudService,
                 CarCrudService>();
+            services.AddSingleton<ICustomerCrudService,
+                CustomerCrudService>();
 
             return services;
         }
