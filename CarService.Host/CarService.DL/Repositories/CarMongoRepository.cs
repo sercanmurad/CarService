@@ -17,7 +17,6 @@ namespace CarService.DL.Repositories
     {
         private readonly IOptionsMonitor<MongoDbConfiguration> _mongoDbConfiguration;
         private ILogger<CarMongoRepository> _logger;
-        private object e;
         private readonly IMongoCollection<Car> _carsCollection;
 
         public CarMongoRepository(IOptionsMonitor<MongoDbConfiguration> mongoDbConfiguration, ILogger<CarMongoRepository> logger)
