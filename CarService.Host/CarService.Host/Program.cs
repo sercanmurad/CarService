@@ -4,6 +4,9 @@ using CarService.BL.Interfaces;
 using CarService.DL;
 using CarService.DL.Interfaces;
 using CarService.DL.Repositories;
+using CarService.Host.Healthchecks;
+using CarService.Host.Validators;
+using FluentValidation;
 using Mapster;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -31,7 +34,10 @@ namespace CarService.Host
                 .AddBusinessLayer();
 
             builder.Services.AddMapster();
-           
+
+            builder.Services.AddValidatorsFromAssemblyContaining<AddCarRequestValidator>();
+
+
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
@@ -43,7 +49,15 @@ namespace CarService.Host
 
             builder.Host.UseSerilog();
 
+            builder.Services
+                .AddHealthChecks()
+                .AddCheck<MyCustomHealthCheck>("sample");
+
+
             var app = builder.Build();
+
+            app.MapHealthChecks("/healthz");
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
