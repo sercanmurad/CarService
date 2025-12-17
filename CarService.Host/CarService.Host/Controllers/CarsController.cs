@@ -1,8 +1,11 @@
 ﻿using CarService.BL.Interfaces;
 using CarService.Models.Dto;
 using CarService.Models.Requests;
-using Microsoft.AspNetCore.Mvc;
+using FluentValidation;
+using FluentValidation.Results;
 using MapsterMapper;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace CarService.Host.Controllers
 {
@@ -12,15 +15,16 @@ namespace CarService.Host.Controllers
     {
         private readonly ICarCrudService _carCrudService;
         private readonly IMapper _mapper;
-        
+        private IValidator<AddCarRequest> _validator;
 
         public CarsController(
-            ICarCrudService carCrudService, 
-            IMapper mapper, 
-            ILogger<CarsController> logger)
+            ICarCrudService carCrudService,
+            IMapper mapper,
+            IValidator<AddCarRequest> validator)
         {
             _carCrudService = carCrudService;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [HttpDelete]
@@ -28,7 +32,7 @@ namespace CarService.Host.Controllers
         {
             if (id == Guid.Empty)
             {
-                return BadRequest("ID must be a valid guid.");
+                return BadRequest("ID must be a valid Guid.");
             }
             var car = _carCrudService.GetById(id);
             if (car == null)
@@ -44,12 +48,11 @@ namespace CarService.Host.Controllers
         {
             if (id == Guid.Empty)
             {
-               
-                return BadRequest("ID must be greater than zero.");
+                return BadRequest("ID must be a valid Guid.");
             }
 
             var car = _carCrudService.GetById(id);
-            
+
             if (car == null)
             {
                 return NotFound($"Car with ID {id} not found.");
@@ -73,14 +76,16 @@ namespace CarService.Host.Controllers
                 return BadRequest("Car data is null.");
             }
 
-            var car = _mapper.Map<Car>(carRequest);
-            _carCrudService.AddCar(car);
+            var result = _validator.Validate(carRequest);
 
-            //_carCrudService.AddCar(new Car
-            //{
-            //    Model = carRequest.Model,
-            //    Year = carRequest.Year,
-            //});
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            var car = _mapper.Map<Car>(carRequest);
+
+            _carCrudService.AddCar(car);
 
             return Ok();
         }
