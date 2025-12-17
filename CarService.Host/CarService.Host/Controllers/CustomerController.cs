@@ -1,6 +1,10 @@
 ﻿using CarService.BL.Interfaces;
 using CarService.Models.Dto;
+using CarService.Models.Requests;
+using FluentValidation;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarService.Host.Controllers
 {
@@ -9,10 +13,15 @@ namespace CarService.Host.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerCrudService _customerCrudService;
+        private IValidator<Customer> _validator;
 
-        public CustomersController(ICustomerCrudService customerCrudService)
+        public object Id { get; internal set; }
+
+
+        public CustomersController(ICustomerCrudService customerCrudService, IValidator<Customer> validator)
         {
             _customerCrudService = customerCrudService;
+            _validator = validator;
         }
 
         [HttpDelete]
@@ -64,6 +73,13 @@ namespace CarService.Host.Controllers
             if (customer == null)
             {
                 return BadRequest("Customer data is null.");
+            }
+
+            var result = _validator.Validate(customer);
+
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
             }
 
             _customerCrudService.AddCustomer(customer);
