@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CarService.DL\CarService.DL.csproj" />
-		<InternalsVisibleTo Include="CarService.Test" />
+		<InternalsVisibleTo Include="CarService.Tests" />
 	</ItemGroup>
 
 

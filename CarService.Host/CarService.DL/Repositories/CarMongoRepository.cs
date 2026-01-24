@@ -72,7 +72,7 @@ namespace CarService.DL.Repositories
 
             try
             {
-               return _carsCollection.Find(c => c.Id == id).FirstOrDefault();
+                return _carsCollection.Find(c => c.Id == id).FirstOrDefault();
             }
             catch (Exception e)
             {

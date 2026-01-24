@@ -52,7 +52,7 @@ namespace CarService.Host.Controllers
             }
 
             var car = _carCrudService.GetById(id);
-            
+
             if (car == null)
             {
                 return NotFound($"Car with ID {id} not found.");
@@ -83,7 +83,7 @@ namespace CarService.Host.Controllers
                 return BadRequest(result.Errors);
             }
 
-                var car = _mapper.Map<Car>(carRequest);
+            var car = _mapper.Map<Car>(carRequest);
 
             _carCrudService.AddCar(car);
 
