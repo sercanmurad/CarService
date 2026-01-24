@@ -6,11 +6,11 @@ using MongoDB.Driver;
 
 namespace CarService.Host.Healthchecks
 {
-    public class MyCustomHealtcheck : IHealthCheck
+    public class MyCustomHealthCheck : IHealthCheck
     {
-        private readonly IOptionsMonitor<MongoDbConfiguration> _mongoDbConfiguration;
+        private readonly IOptionsMonitor<MongoDbConfiguration>? _mongoDbConfiguration;
 
-        public MyCustomHealtcheck(IOptionsMonitor<MongoDbConfiguration> mongoDbConfiguration)
+        public MyCustomHealthCheck(IOptionsMonitor<MongoDbConfiguration>? mongoDbConfiguration)
         {
             _mongoDbConfiguration = mongoDbConfiguration;
         }
@@ -24,18 +24,14 @@ namespace CarService.Host.Healthchecks
             try
             {
                 var client = new MongoClient(_mongoDbConfiguration.CurrentValue.ConnectionString);
-
                 var database = client.GetDatabase(_mongoDbConfiguration.CurrentValue.DatabaseName);
-
                 //var carsCollection = database.GetCollection<Car>($"{nameof(Car)}s");
 
                 database.RunCommandAsync((Command<MongoDB.Bson.BsonDocument>)"{ping:1}").Wait(cancellationToken);
-
                 isHealthy = true;
             }
             catch (Exception)
             {
-                //log...
                 isHealthy = false;
             }
 
@@ -43,12 +39,12 @@ namespace CarService.Host.Healthchecks
             if (isHealthy)
             {
                 return Task.FromResult(
-                    HealthCheckResult.Healthy("MongoDb is healthy."));
+                    HealthCheckResult.Healthy("MongoDB is healthy."));
             }
 
             return Task.FromResult(
                 new HealthCheckResult(
-                    context.Registration.FailureStatus, "MongoDb is unhealthy."));
+                    context.Registration.FailureStatus, "MongoDB is unhealthy."));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace CarService.BL.Services
         {
             if (car == null) return;
 
-            if (car?.Id == null || car.Id == Guid.Empty)
+            if(car?.Id == null || car.Id == Guid.Empty)
             {
                 car!.Id = Guid.NewGuid();
             }

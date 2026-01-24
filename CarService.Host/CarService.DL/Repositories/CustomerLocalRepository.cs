@@ -1,14 +1,21 @@
-﻿using CarService.DL.Interfaces;
+﻿using CarService.Models.Dto;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CarService.DL.Interfaces;
 using CarService.DL.LocalDb;
-using CarService.Models.Dto;
+
+
 
 namespace CarService.DL.Repositories
 {
-    internal class CustomerLocalRepository : ICustomerRepository
+    public class CustomerLocalRepository : ICustomerRepository
     {
-        public void AddCustomer(Customer car)
+        public void AddCustomer(Customer customer)
         {
-            StaticDb.Customers.Add(car);
+            StaticDb.Customers.Add(customer);
         }
 
         public void DeleteCustomer(Guid id)
@@ -24,8 +31,8 @@ namespace CarService.DL.Repositories
         public Customer? GetById(Guid id)
         {
             return StaticDb.Customers
-                .FirstOrDefault(c =>
-                    c.Id == id);
+                .FirstOrDefault(c => c.Id == id);
         }
     }
 }
+

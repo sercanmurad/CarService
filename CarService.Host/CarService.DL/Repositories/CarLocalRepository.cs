@@ -4,7 +4,7 @@ using CarService.Models.Dto;
 
 namespace CarService.DL.Repositories
 {
-    [Obsolete($"Please use: {nameof(CarMongoRepository)}")]
+    [Obsolete ($"Please use: {nameof(CarMongoRepository)}")]
     internal class CarLocalRepository : ICarRepository
     {
         public void AddCar(Car car)
