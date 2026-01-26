@@ -1,14 +1,14 @@
-using CoffeShop.Models.Dto;
+﻿using CarService.Models.Dto;
 
-namespace CoffeShop.DL.LocalDb
+namespace CarService.DL.LocalDb
 {
     internal static class StaticDb
     {
-        public static List<Coffee> Coffees = new List<Coffee>
+        public static List<Car> Cars = new List<Car>
         {
-            new Coffee { Id = Guid.NewGuid(), Name = "Espresso", RoastYear = 2023, BasePrice = 3.50m },
-            new Coffee { Id = Guid.NewGuid(), Name = "Cappuccino", RoastYear = 2023, BasePrice = 4.20m },
-            new Coffee { Id = Guid.NewGuid(), Name = "Latte", RoastYear = 2023, BasePrice = 4.50m }
+            new Car { Id = Guid.NewGuid(), Model = "Toyota Camry", Year = 2020 },
+            new Car { Id = Guid.NewGuid(), Model = "Honda Accord", Year = 2019 },
+            new Car { Id = Guid.NewGuid(), Model = "Ford Mustang", Year = 2021 }
         };
 
         public static List<Customer> Customers =
