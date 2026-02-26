@@ -15,6 +15,7 @@ namespace CarService.BL
             services.AddSingleton<ICustomerCrudService,
                 CustomerCrudService>();
 
+
             return services;
         }
     }

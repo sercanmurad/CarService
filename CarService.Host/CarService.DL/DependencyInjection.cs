@@ -1,4 +1,5 @@
-﻿using CarService.DL.Interfaces;
+﻿using CarService.DL.Infrastructure.HostedServices;
+using CarService.DL.Interfaces;
 using CarService.DL.Repositories;
 using CarService.Models.Configurations;
 using Microsoft.Extensions.Configuration;
@@ -17,11 +18,13 @@ namespace CarService.DL
             BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
             // Register data layer services here
             services
+                .AddHostedService<BackgroundWorker>()
+                .AddHostedService<HostedWorker>()
                 .AddConfigurations(configs)
                 .AddSingleton<ICarRepository, CarLocalRepository>()
                 .AddSingleton<ICarRepository, CarMongoRepository>()
                 .AddSingleton<ICustomerRepository, CustomerMongoRepository>();
-
+                
             return services;
         }
         private static IServiceCollection
