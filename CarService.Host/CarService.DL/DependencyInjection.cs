@@ -33,6 +33,7 @@ namespace CarService.DL
         {
             // Register data layer services here
             services.Configure<MongoDbConfiguration>(configs.GetSection(nameof(MongoDbConfiguration)));
+            services.AddHostedService<KafkaConsumerWorker>();
 
             return services;
         }
